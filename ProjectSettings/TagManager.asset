@@ -13,10 +13,10 @@ TagManager:
   - Water
   - UI
   - Bloqueio
-  - 
-  - 
-  - 
-  - 
+  - Consumiveis
+  - Inimigos
+  - Piso
+  - Objetos
   - 
   - 
   - 
@@ -41,6 +41,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Piso
+    uniqueID: 2929532809
+    locked: 0
+  - name: Objetos
+    uniqueID: 1346998071
+    locked: 0
+  - name: Lago
+    uniqueID: 1314188367
     locked: 0
   - name: Caracteres
     uniqueID: 2549547213
