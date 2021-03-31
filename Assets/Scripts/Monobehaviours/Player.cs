@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class Player : Caractere
 {
+	public HealthBar healthBarPrefab; // referncia ao objeto prefab criado do HealthBar
+	HealthBar healthBar;
+
+	private void Start()
+	{
+		healthBar.caractere = this;
+		pontosDano.valor = inicioPontosDano;
+		healthBar = Instantiate( healthBarPrefab );
+	}
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if ( collision.gameObject.CompareTag( "Coletavel" ) )
@@ -12,27 +22,37 @@ public class Player : Caractere
 
 			if ( danoObjeto != null )
 			{
-				print( "o/a: " + danoObjeto.NomeObjeto );
+				bool DeveDesaparecer = false;
+				// print( "o/a: " + danoObjeto.NomeObjeto );
 
 				switch ( danoObjeto.tipoItem )
 				{
 					case Item.TipoItem.MOEDA:
+						DeveDesaparecer = true;
 						break;
 					case Item.TipoItem.HEALTH:
-						AjusteDanoObjeto( danoObjeto.quantidade );
+						DeveDesaparecer = AjusteDanoObjeto( danoObjeto.quantidade );
 						break;
 					default:
 						break;
 				}
 
-				collision.gameObject.SetActive( false );
+				if ( DeveDesaparecer )
+				{
+					collision.gameObject.SetActive( false );
+				}
 			}
 		}
 	}
 
-	public void AjusteDanoObjeto(int quantidade)
+	public bool AjusteDanoObjeto(int quantidade)
 	{
-		PontosDano = PontosDano + quantidade;
-		print( "Ajuste por: " + quantidade + ". Novo valor = " + PontosDano );
+		if ( pontosDano.valor < MaxPontosDano )
+		{
+			pontosDano.valor = pontosDano.valor + quantidade;
+			print( "Ajuste PD por: " + quantidade + ". Novo valor = " + pontosDano.valor );
+			return true;
+		}
+		else return false;
 	}
 }
