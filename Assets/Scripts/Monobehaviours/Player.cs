@@ -4,34 +4,39 @@ using UnityEngine;
 
 public class Player : Caractere
 {
+	public Inventario inventarioPrefab; //referencia ao objeto prefabc criando do inventario
+	Inventario inventario;
+
 	public HealthBar healthBarPrefab; // referncia ao objeto prefab criado do HealthBar
 	HealthBar healthBar;
 
 	private void Start()
 	{
-		healthBar.caractere = this;
+		inventario = Instantiate( inventarioPrefab );
 		pontosDano.valor = inicioPontosDano;
 		healthBar = Instantiate( healthBarPrefab );
+		healthBar.caractere = this;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if ( collision.gameObject.CompareTag( "Coletavel" ) )
 		{
-			Item danoObjeto = collision.gameObject.GetComponent<Consumable>().item;
+			Item DanoObjeto = collision.gameObject.GetComponent<Consumable>().item;
 
-			if ( danoObjeto != null )
+			if ( DanoObjeto != null )
 			{
 				bool DeveDesaparecer = false;
 				// print( "o/a: " + danoObjeto.NomeObjeto );
 
-				switch ( danoObjeto.tipoItem )
+				switch ( DanoObjeto.tipoItem )
 				{
 					case Item.TipoItem.MOEDA:
-						DeveDesaparecer = true;
+						// DeveDesaparecer = true;
+						DeveDesaparecer = inventario.AddItem( DanoObjeto );
 						break;
 					case Item.TipoItem.HEALTH:
-						DeveDesaparecer = AjusteDanoObjeto( danoObjeto.quantidade );
+						DeveDesaparecer = AjusteDanoObjeto( DanoObjeto.quantidade );
 						break;
 					default:
 						break;

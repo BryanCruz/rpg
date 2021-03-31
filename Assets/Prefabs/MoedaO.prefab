@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1207805748186146621}
   - component: {fileID: 3492848721790219225}
   - component: {fileID: -7637628944253456754}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MoedaO
   m_TagString: Coletavel
   m_Icon: {fileID: 0}
