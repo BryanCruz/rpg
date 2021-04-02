@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Inimigo
   - Coletavel
+  - Virtual Camera
   layers:
   - Default
   - TransparentFX
