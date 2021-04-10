@@ -8,10 +8,13 @@ public class MovimentoPlayer : MonoBehaviour
 	Vector2 Movimento = new Vector2();  // detectar movimento pelo teclado
 
 	Animator animator;  // guarda a componente do Controlador da Animação
-	string estadoAnimacao = "EstadoAnimacao"; // guarda o nome do parâmetro de Animação
+
+	//	string estadoAnimacao = "EstadoAnimacao"; // guarda o nome do parâmetro de Animação // desnecessário com a blend tree (andar tree)
 
 	Rigidbody2D rb2D; // guarda a componente CorpoRigido do Player
 
+
+	/*			// desnecessário pela blend tree (andar tree)
 
 	enum EstadosCaractere
 	{
@@ -21,6 +24,8 @@ public class MovimentoPlayer : MonoBehaviour
 		andaSul = 4,
 		idle = 5
 	}
+
+	*/
 
 	// Start is called before the first frame update
 	void Start()
@@ -49,31 +54,44 @@ public class MovimentoPlayer : MonoBehaviour
 		rb2D.velocity = Movimento * VelocidadeMovimento;
 	}
 
-	private void UpdateEstado()
+	void UpdateEstado()
 	{
-		if ( Movimento.x > 0 )
+		if ( Mathf.Approximately( Movimento.x, 0 ) && Mathf.Approximately( Movimento.y, 0 ) )
 		{
-			animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.andaLeste );
-		}
-		else if ( Movimento.x < 0 )
-		{
-			animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.andaOeste );
-		}
-		else if ( Movimento.y > 0 )
-		{
-			animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.andaNorte );
-		}
-		else if ( Movimento.y < 0 )
-		{
-			animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.andaSul );
+			animator.SetBool( "Caminhando", false );
 		}
 		else
 		{
-			animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.idle );
+			animator.SetBool( "Caminhando", true );
 		}
 
-
-
-
+		animator.SetFloat( "dirX", Movimento.x );
+		animator.SetFloat( "dirY", Movimento.y );
 	}
+
+	/*
+		private void UpdateEstado()
+		{
+			if ( Movimento.x > 0 )
+			{
+				animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.andaLeste );
+			}
+			else if ( Movimento.x < 0 )
+			{
+				animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.andaOeste );
+			}
+			else if ( Movimento.y > 0 )
+			{
+				animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.andaNorte );
+			}
+			else if ( Movimento.y < 0 )
+			{
+				animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.andaSul );
+			}
+			else
+			{
+				animator.SetInteger( estadoAnimacao, (int)EstadosCaractere.idle );
+			}
+		}
+		*/
 }
