@@ -15,5 +15,5 @@ MonoBehaviour:
   NomeObjeto: Chocolate
   sprite: {fileID: 21300000, guid: d95f88a10cf76014e98f6b3c4843eeca, type: 3}
   quantidade: 1
-  empilhavel: 1
+  empilhavel: 0
   tipoItem: 2
