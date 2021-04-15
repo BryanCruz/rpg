@@ -75,6 +75,7 @@ public class Player : Caractere
 				{
 					case Item.TipoItem.MOEDA:
 					case Item.TipoItem.CHOCOLATE:
+					case Item.TipoItem.VARINHA:
 						// DeveDesaparecer = true;
 						DeveDesaparecer = inventario.AddItem( DanoObjeto );
 						break;
