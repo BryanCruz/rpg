@@ -41,42 +41,47 @@ public class Inventario : MonoBehaviour
 
 	public bool AddItem(Item itemToAdd)
 	{
-		for ( int i = 0; i < items.Length; i++ )
-		{
-			bool addedItem = false;
-			bool isFirst = false;
+		int indexToAdd = -1;
+		bool isFirst = false;
 
+		for ( int i = 0; i < items.Length && indexToAdd < 0; i++ )
+		{
 			if ( items[i] != null
 				&& items[i].tipoItem == itemToAdd.tipoItem
 				&& itemToAdd.empilhavel == true )
 			{
-				addedItem = true;
+				indexToAdd = i;
 				isFirst = false;
 			}
+		}
 
+		for ( int i = 0; i < items.Length && indexToAdd < 0; i++ )
+		{
 			if ( items[i] == null )
 			{
-				addedItem = true;
+				indexToAdd = i;
 				isFirst = true;
 			}
+		}
 
-			if ( addedItem )
+		if ( indexToAdd >= 0 )
+		{
+			int i = indexToAdd;
+
+			if ( isFirst )
 			{
-				if ( isFirst )
-				{
-					items[i] = Instantiate( itemToAdd );
-					items[i].quantidade = 0;
-					itemImagens[i].sprite = itemToAdd.sprite;
-					itemImagens[i].enabled = true;
-				}
-
-				items[i].quantidade = items[i].quantidade + 1;
-
-				Slot slotScript = slots[i].gameObject.GetComponent<Slot>();
-				Text quantidadeTexto = slotScript.qtdTexto;
-				quantidadeTexto.enabled = true;
-				quantidadeTexto.text = items[i].quantidade.ToString();
+				items[i] = Instantiate( itemToAdd );
+				items[i].quantidade = 0;
+				itemImagens[i].sprite = itemToAdd.sprite;
+				itemImagens[i].enabled = true;
 			}
+
+			items[i].quantidade = items[i].quantidade + 1;
+
+			Slot slotScript = slots[i].gameObject.GetComponent<Slot>();
+			Text quantidadeTexto = slotScript.qtdTexto;
+			quantidadeTexto.enabled = true;
+			quantidadeTexto.text = items[i].quantidade.ToString();
 
 			return true;
 		}
