@@ -16,4 +16,4 @@ MonoBehaviour:
   sprite: {fileID: -8843976880988234773, guid: d8b046286b9609c4ca8766bb94ee119e, type: 3}
   quantidade: 1
   empilhavel: 1
-  tipoItem: 1
+  tipoItem: 2

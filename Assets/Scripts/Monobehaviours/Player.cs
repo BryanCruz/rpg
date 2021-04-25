@@ -73,15 +73,22 @@ public class Player : Caractere
 
 				switch ( DanoObjeto.tipoItem )
 				{
+					// caso seja qualquer um dos seguintes itens, adiciona no inventario e remove o objeto da cena caso necessário
 					case Item.TipoItem.MOEDA:
+					case Item.TipoItem.MOEDAAZUL:
 					case Item.TipoItem.CHOCOLATE:
 					case Item.TipoItem.VARINHA:
+					case Item.TipoItem.VARINHA2:
 						// DeveDesaparecer = true;
 						DeveDesaparecer = inventario.AddItem( DanoObjeto );
 						break;
+
+					// caso seja vida, cura o player e remove o objeto da cena caso necessário
 					case Item.TipoItem.HEALTH:
 						DeveDesaparecer = AjusteDanoObjeto( DanoObjeto.quantidade );
 						break;
+
+					// default, não faz nada
 					default:
 						break;
 				}
