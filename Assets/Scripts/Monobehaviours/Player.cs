@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : Caractere
 {
@@ -104,7 +105,7 @@ public class Player : Caractere
 				bool coletouTodosOsColetaveis = checaSeColetouTodosOsColetaveis();
 				if ( coletouTodosOsColetaveis )
 				{
-					print( "FINISH" );
+					SceneManager.LoadScene( "Creditos" );
 				}
 
 			}
