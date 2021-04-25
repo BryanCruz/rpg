@@ -7,7 +7,7 @@ public class Inventario : MonoBehaviour
 	public const int numSlots = 5; // numero fixo de Slots
 
 	Image[] itemImagens = new Image[numSlots]; // array de imagens
-	Item[] items = new Item[numSlots];  // array de items
+	public Item[] items = new Item[numSlots];  // array de items
 	GameObject[] slots = new GameObject[numSlots];  // array de slots
 
 	// Start is called before the first frame update
