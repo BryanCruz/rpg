@@ -14,4 +14,9 @@ public class ManageButton : MonoBehaviour
 	{
 		SceneManager.LoadScene( "Creditos" );
 	}
+
+	public void Sair()
+	{
+		Application.Quit();
+	}
 }

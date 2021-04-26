@@ -13,6 +13,8 @@ public class Player : Caractere
 
 	public PontosDano pontosDano; // tem o valor de "saúde" do objeto
 
+	bool showHelp = false; // checa se é pra mostrar o texto de ajuda
+
 	private void Start()
 	{
 		inventario = Instantiate( inventarioPrefab );
@@ -32,6 +34,7 @@ public class Player : Caractere
 			if ( pontosDano.valor <= float.Epsilon )
 			{
 				KillCaractere();
+				SceneManager.LoadScene( "GameOver" );
 				break;
 			}
 
@@ -105,10 +108,37 @@ public class Player : Caractere
 				bool coletouTodosOsColetaveis = checaSeColetouTodosOsColetaveis();
 				if ( coletouTodosOsColetaveis )
 				{
-					SceneManager.LoadScene( "Creditos" );
+					SceneManager.LoadScene( "MissaoCumprida" );
 				}
 
 			}
+		}
+
+		// mostra a mensagem de ajuda quando chega perto do anjo
+		if ( collision.gameObject.CompareTag( "Helper" ) )
+		{
+			showHelp = true;
+		}
+	}
+
+	// evento para exibir itens de interface de usuario
+	private void OnGUI()
+	{
+		// define o conteudo da mensagem de ajuda
+		string mensagemDeAjuda = "Olá aventureiro, você deve nos salvar!\nColete os seguintes itens para podermos sair desse lugar:\n" +
+								 "- 5 moedas da cor azul\n- 5 moedas da cor amarela\n-1 barra de chocolate\n- 1 varinha perdida do mago Blah\n- 1 varinha perdida do feiticeiro Wadda\n" +
+								 "Tome cuidado com os inimigos e boa sorte!";
+
+		// exibe a mensagem caso necessário
+		if ( showHelp ) GUI.Box( new Rect( 555, 555, 400, 130 ), mensagemDeAjuda );
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		// deixa de mostrar a mensagem de ajuda quando anda pra longe do anjo
+		if ( collision.gameObject.CompareTag( "Helper" ) )
+		{
+			showHelp = false;
 		}
 	}
 
